@@ -7,6 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2C1BDA117EE54A0057FD4D /* Deeplink.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B2C1BD8117EE54A0057FD4D /* Deeplink.h */; };
+		2B2C1BDB117EE54A0057FD4D /* Deeplink.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BD9117EE54A0057FD4D /* Deeplink.m */; };
+		2B2C1C03117EE72B0057FD4D /* acceleration.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BEC117EE72B0057FD4D /* acceleration.js */; };
+		2B2C1C04117EE72B0057FD4D /* accelerometer.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BED117EE72B0057FD4D /* accelerometer.js */; };
+		2B2C1C05117EE72B0057FD4D /* bonjour.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BEE117EE72B0057FD4D /* bonjour.js */; };
+		2B2C1C06117EE72B0057FD4D /* camera.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BEF117EE72B0057FD4D /* camera.js */; };
+		2B2C1C07117EE72B0057FD4D /* compass.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF0117EE72B0057FD4D /* compass.js */; };
+		2B2C1C08117EE72B0057FD4D /* contact.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF1117EE72B0057FD4D /* contact.js */; };
+		2B2C1C09117EE72B0057FD4D /* debugconsole.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF2117EE72B0057FD4D /* debugconsole.js */; };
+		2B2C1C0A117EE72B0057FD4D /* device.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF3117EE72B0057FD4D /* device.js */; };
+		2B2C1C0B117EE72B0057FD4D /* file.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF4117EE72B0057FD4D /* file.js */; };
+		2B2C1C0C117EE72B0057FD4D /* geolocation.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF5117EE72B0057FD4D /* geolocation.js */; };
+		2B2C1C0D117EE72B0057FD4D /* map.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF6117EE72B0057FD4D /* map.js */; };
+		2B2C1C0E117EE72B0057FD4D /* media.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF7117EE72B0057FD4D /* media.js */; };
+		2B2C1C0F117EE72B0057FD4D /* network.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF8117EE72B0057FD4D /* network.js */; };
+		2B2C1C10117EE72B0057FD4D /* notification.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BF9117EE72B0057FD4D /* notification.js */; };
+		2B2C1C11117EE72B0057FD4D /* orientation.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BFA117EE72B0057FD4D /* orientation.js */; };
+		2B2C1C12117EE72B0057FD4D /* position.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BFC117EE72B0057FD4D /* position.js */; };
+		2B2C1C13117EE72B0057FD4D /* sms.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BFD117EE72B0057FD4D /* sms.js */; };
+		2B2C1C14117EE72B0057FD4D /* telephony.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BFE117EE72B0057FD4D /* telephony.js */; };
+		2B2C1C15117EE72B0057FD4D /* uicontrols.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1BFF117EE72B0057FD4D /* uicontrols.js */; };
+		2B2C1C16117EE72B0057FD4D /* phonegap.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1C00117EE72B0057FD4D /* phonegap.js */; };
+		2B2C1C18117EE74D0057FD4D /* deeplinks.js in Sources */ = {isa = PBXBuildFile; fileRef = 2B2C1C17117EE74D0057FD4D /* deeplinks.js */; };
 		8887FD641090FBE7009987E8 /* Bonjour.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD241090FBE7009987E8 /* Bonjour.h */; };
 		8887FD651090FBE7009987E8 /* Bonjour.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD251090FBE7009987E8 /* Bonjour.m */; };
 		8887FD661090FBE7009987E8 /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD261090FBE7009987E8 /* Camera.h */; };
@@ -76,6 +99,31 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B2C1BD8117EE54A0057FD4D /* Deeplink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deeplink.h; path = Classes/Deeplink.h; sourceTree = "<group>"; };
+		2B2C1BD9117EE54A0057FD4D /* Deeplink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deeplink.m; path = Classes/Deeplink.m; sourceTree = "<group>"; };
+		2B2C1BEC117EE72B0057FD4D /* acceleration.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = acceleration.js; sourceTree = "<group>"; };
+		2B2C1BED117EE72B0057FD4D /* accelerometer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = accelerometer.js; sourceTree = "<group>"; };
+		2B2C1BEE117EE72B0057FD4D /* bonjour.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bonjour.js; sourceTree = "<group>"; };
+		2B2C1BEF117EE72B0057FD4D /* camera.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = camera.js; sourceTree = "<group>"; };
+		2B2C1BF0117EE72B0057FD4D /* compass.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = compass.js; sourceTree = "<group>"; };
+		2B2C1BF1117EE72B0057FD4D /* contact.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = contact.js; sourceTree = "<group>"; };
+		2B2C1BF2117EE72B0057FD4D /* debugconsole.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = debugconsole.js; sourceTree = "<group>"; };
+		2B2C1BF3117EE72B0057FD4D /* device.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = device.js; sourceTree = "<group>"; };
+		2B2C1BF4117EE72B0057FD4D /* file.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = file.js; sourceTree = "<group>"; };
+		2B2C1BF5117EE72B0057FD4D /* geolocation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = geolocation.js; sourceTree = "<group>"; };
+		2B2C1BF6117EE72B0057FD4D /* map.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = map.js; sourceTree = "<group>"; };
+		2B2C1BF7117EE72B0057FD4D /* media.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = media.js; sourceTree = "<group>"; };
+		2B2C1BF8117EE72B0057FD4D /* network.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = network.js; sourceTree = "<group>"; };
+		2B2C1BF9117EE72B0057FD4D /* notification.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = notification.js; sourceTree = "<group>"; };
+		2B2C1BFA117EE72B0057FD4D /* orientation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = orientation.js; sourceTree = "<group>"; };
+		2B2C1BFB117EE72B0057FD4D /* phonegap.js.base */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = phonegap.js.base; sourceTree = "<group>"; };
+		2B2C1BFC117EE72B0057FD4D /* position.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = position.js; sourceTree = "<group>"; };
+		2B2C1BFD117EE72B0057FD4D /* sms.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sms.js; sourceTree = "<group>"; };
+		2B2C1BFE117EE72B0057FD4D /* telephony.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = telephony.js; sourceTree = "<group>"; };
+		2B2C1BFF117EE72B0057FD4D /* uicontrols.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = uicontrols.js; sourceTree = "<group>"; };
+		2B2C1C00117EE72B0057FD4D /* phonegap.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = phonegap.js; path = javascripts/phonegap.js; sourceTree = "<group>"; };
+		2B2C1C02117EE72B0057FD4D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		2B2C1C17117EE74D0057FD4D /* deeplinks.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = deeplinks.js; sourceTree = "<group>"; };
 		8887FD241090FBE7009987E8 /* Bonjour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bonjour.h; path = Classes/Bonjour.h; sourceTree = "<group>"; };
 		8887FD251090FBE7009987E8 /* Bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bonjour.m; path = Classes/Bonjour.m; sourceTree = "<group>"; };
 		8887FD261090FBE7009987E8 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = Classes/Camera.h; sourceTree = "<group>"; };
@@ -167,6 +215,7 @@
 		0867D691FE84028FC02AAC07 /* PhoneGapLib */ = {
 			isa = PBXGroup;
 			children = (
+				2B2C1BEA117EE7130057FD4D /* Javascripts */,
 				8887FD101090FB43009987E8 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
@@ -180,6 +229,54 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B2C1BEA117EE7130057FD4D /* Javascripts */ = {
+			isa = PBXGroup;
+			children = (
+				2B2C1BEB117EE72B0057FD4D /* core */,
+				2B2C1C00117EE72B0057FD4D /* phonegap.js */,
+				2B2C1C01117EE72B0057FD4D /* plugins */,
+			);
+			name = Javascripts;
+			sourceTree = "<group>";
+		};
+		2B2C1BEB117EE72B0057FD4D /* core */ = {
+			isa = PBXGroup;
+			children = (
+				2B2C1C17117EE74D0057FD4D /* deeplinks.js */,
+				2B2C1BEC117EE72B0057FD4D /* acceleration.js */,
+				2B2C1BED117EE72B0057FD4D /* accelerometer.js */,
+				2B2C1BEE117EE72B0057FD4D /* bonjour.js */,
+				2B2C1BEF117EE72B0057FD4D /* camera.js */,
+				2B2C1BF0117EE72B0057FD4D /* compass.js */,
+				2B2C1BF1117EE72B0057FD4D /* contact.js */,
+				2B2C1BF2117EE72B0057FD4D /* debugconsole.js */,
+				2B2C1BF3117EE72B0057FD4D /* device.js */,
+				2B2C1BF4117EE72B0057FD4D /* file.js */,
+				2B2C1BF5117EE72B0057FD4D /* geolocation.js */,
+				2B2C1BF6117EE72B0057FD4D /* map.js */,
+				2B2C1BF7117EE72B0057FD4D /* media.js */,
+				2B2C1BF8117EE72B0057FD4D /* network.js */,
+				2B2C1BF9117EE72B0057FD4D /* notification.js */,
+				2B2C1BFA117EE72B0057FD4D /* orientation.js */,
+				2B2C1BFB117EE72B0057FD4D /* phonegap.js.base */,
+				2B2C1BFC117EE72B0057FD4D /* position.js */,
+				2B2C1BFD117EE72B0057FD4D /* sms.js */,
+				2B2C1BFE117EE72B0057FD4D /* telephony.js */,
+				2B2C1BFF117EE72B0057FD4D /* uicontrols.js */,
+			);
+			name = core;
+			path = javascripts/core;
+			sourceTree = "<group>";
+		};
+		2B2C1C01117EE72B0057FD4D /* plugins */ = {
+			isa = PBXGroup;
+			children = (
+				2B2C1C02117EE72B0057FD4D /* README.md */,
+			);
+			name = plugins;
+			path = javascripts/plugins;
 			sourceTree = "<group>";
 		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
@@ -231,6 +328,8 @@
 				8887FD5F1090FBE7009987E8 /* Reachability.m */,
 				8887FD601090FBE7009987E8 /* Sound.h */,
 				8887FD611090FBE7009987E8 /* Sound.m */,
+				2B2C1BD8117EE54A0057FD4D /* Deeplink.h */,
+				2B2C1BD9117EE54A0057FD4D /* Deeplink.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -336,6 +435,7 @@
 				8887FD9F1090FBE7009987E8 /* Sound.h in Headers */,
 				8887FDA11090FBE7009987E8 /* UIControls.h in Headers */,
 				88BA573D109BB46F00FB5E78 /* Accelerometer.h in Headers */,
+				2B2C1BDA117EE54A0057FD4D /* Deeplink.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +533,28 @@
 				8887FDA01090FBE7009987E8 /* Sound.m in Sources */,
 				8887FDA21090FBE7009987E8 /* UIControls.m in Sources */,
 				88BA573E109BB46F00FB5E78 /* Accelerometer.m in Sources */,
+				2B2C1BDB117EE54A0057FD4D /* Deeplink.m in Sources */,
+				2B2C1C03117EE72B0057FD4D /* acceleration.js in Sources */,
+				2B2C1C04117EE72B0057FD4D /* accelerometer.js in Sources */,
+				2B2C1C05117EE72B0057FD4D /* bonjour.js in Sources */,
+				2B2C1C06117EE72B0057FD4D /* camera.js in Sources */,
+				2B2C1C07117EE72B0057FD4D /* compass.js in Sources */,
+				2B2C1C08117EE72B0057FD4D /* contact.js in Sources */,
+				2B2C1C09117EE72B0057FD4D /* debugconsole.js in Sources */,
+				2B2C1C0A117EE72B0057FD4D /* device.js in Sources */,
+				2B2C1C0B117EE72B0057FD4D /* file.js in Sources */,
+				2B2C1C0C117EE72B0057FD4D /* geolocation.js in Sources */,
+				2B2C1C0D117EE72B0057FD4D /* map.js in Sources */,
+				2B2C1C0E117EE72B0057FD4D /* media.js in Sources */,
+				2B2C1C0F117EE72B0057FD4D /* network.js in Sources */,
+				2B2C1C10117EE72B0057FD4D /* notification.js in Sources */,
+				2B2C1C11117EE72B0057FD4D /* orientation.js in Sources */,
+				2B2C1C12117EE72B0057FD4D /* position.js in Sources */,
+				2B2C1C13117EE72B0057FD4D /* sms.js in Sources */,
+				2B2C1C14117EE72B0057FD4D /* telephony.js in Sources */,
+				2B2C1C15117EE72B0057FD4D /* uicontrols.js in Sources */,
+				2B2C1C16117EE72B0057FD4D /* phonegap.js in Sources */,
+				2B2C1C18117EE74D0057FD4D /* deeplinks.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

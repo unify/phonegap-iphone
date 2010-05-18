@@ -231,8 +231,8 @@ static NSString *gapVersion;
     // Determine the URL used to invoke this application.
     // Described in http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
 	
- 	if ([[invokedURL scheme] isEqualToString:[self appURLScheme]]) {
-		InvokedUrlCommand* iuc = [[InvokedUrlCommand newFromUrl:invokedURL] autorelease];
+ 	if ([[self.invokedURL scheme] isEqualToString:[self appURLScheme]]) {
+		InvokedUrlCommand* iuc = [[InvokedUrlCommand newFromUrl:self.invokedURL] autorelease];
     
 		NSLog(@"Arguments: %@", iuc.arguments);
 		NSString *optionsString = [[NSString alloc] initWithFormat:@"var Invoke_params=%@;", [iuc.options JSONFragment]];
@@ -445,7 +445,7 @@ static NSString *gapVersion;
 	if (!url) { return NO; }
 	
 	NSLog(@"URL = %@", [url absoluteURL]);
-	invokedURL = url;
+	self.invokedURL = url;
 	
 	return YES;
 }
@@ -457,7 +457,7 @@ static NSString *gapVersion;
 	[viewController release];
     [activityView release];
 	[window release];
-	[invokedURL release];
+	self.invokedURL = nil;
 	
 	[super dealloc];
 }

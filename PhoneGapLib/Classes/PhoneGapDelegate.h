@@ -1,3 +1,11 @@
+/*
+ * PhoneGap is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * 
+ * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010, IBM Corporation
+ */
+
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UINavigationController.h>
@@ -53,11 +61,15 @@
 - (BOOL) execute:(InvokedUrlCommand*)command;
 - (NSString*) appURLScheme;
 - (NSDictionary*) deviceProperties;
+- (void)applicationWillTerminate:(UIApplication *)application;
+
 
 + (NSDictionary*)getBundlePlist:(NSString *)plistName;
 + (NSString*) wwwFolderName;
 + (NSString*) pathForResource:(NSString*)resourcepath;
 + (NSString*) phoneGapVersion;
 + (NSString*) applicationDocumentsDirectory;
++ (NSString*) tmpFolderName;
++ (NSString*) startPage;
 
 @end

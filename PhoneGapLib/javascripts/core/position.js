@@ -4,7 +4,7 @@
  * @param {Object} lng
  * @param {Object} acc
  * @param {Object} alt
- * @param {Object} altacc
+ * @param {Object} altAcc
  * @param {Object} head
  * @param {Object} vel
  * @constructor
@@ -14,7 +14,7 @@ function Position(coords, timestamp) {
         this.timestamp = new Date().getTime();
 }
 
-function Coordinates(lat, lng, alt, acc, head, vel) {
+function Coordinates(lat, lng, alt, acc, head, vel, altAcc) {
 	/**
 	 * The latitude of the position.
 	 */
@@ -39,6 +39,10 @@ function Coordinates(lat, lng, alt, acc, head, vel) {
 	 * The velocity with which the device is moving at the position.
 	 */
 	this.speed = vel;
+	/**
+	 * The altitude accuracy of the position.
+	 */
+	this.altitudeAccuracy = (altAcc != 'undefined') ? altAcc : null; 
 }
 
 /**

@@ -1,12 +1,10 @@
 /*
- *  Contact.m
- *
- *  Created by Nitobi on 2/3/09
- *  Copyright 2008 Nitobi. All rights reserved.
- *  Rob Ellis rob.ellis@nitobi.com
- *  Shazron Abdullah shazron@nitobi.com
- *
+ * PhoneGap is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * 
+ * Copyright (c) 2005-2010, Nitobi Software Inc.
  */
+
 
 #import "Contacts.h"
 #import <UIKit/UIKit.h>
@@ -224,17 +222,18 @@ void addressBookChanged(ABAddressBookRef addressBook, CFDictionaryRef info, void
 		personController.personViewDelegate = self;
 		personController.allowsEditing = allowsEditing;
 		
-		UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
-										  initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		UIBarButtonItem* doneButton = [[UIBarButtonItem alloc]
+										  initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 										  target: self
-										  action: @selector(dimissModalView:)];
+										  action: @selector(dismissModalView:)];
 		
-		personController.navigationItem.leftBarButtonItem = cancelButton;
-		[cancelButton release];												
-
 		UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:personController] autorelease];
 		[[super appViewController] presentModalViewController:navController animated: YES];
+
+		// this needs to be AFTER presentModal, if not it does not show up (iOS 4 regression: workaround)
+		personController.navigationItem.rightBarButtonItem = doneButton;
 		
+		[doneButton release];												
 		[rec release];
 	} 
 	else 
@@ -250,7 +249,7 @@ void addressBookChanged(ABAddressBookRef addressBook, CFDictionaryRef info, void
 	}
 }
 
-- (void) dimissModalView:(id)sender 
+- (void) dismissModalView:(id)sender 
 {
 	UIViewController* controller = ([super appViewController]);
 	[controller.modalViewController dismissModalViewControllerAnimated:YES]; 

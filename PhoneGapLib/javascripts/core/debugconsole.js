@@ -2,7 +2,20 @@
  * This class provides access to the debugging console.
  * @constructor
  */
-function DebugConsole() {
+function DebugConsole(isDeprecated) {
+    this.logLevel = DebugConsole.INFO_LEVEL;
+    this.isDeprecated = isDeprecated ? true : false;
+}
+
+// from most verbose, to least verbose
+DebugConsole.ALL_LEVEL    = 1; // same as first level
+DebugConsole.INFO_LEVEL   = 1;
+DebugConsole.WARN_LEVEL   = 2;
+DebugConsole.ERROR_LEVEL  = 4;
+DebugConsole.NONE_LEVEL   = 8;
+													
+DebugConsole.prototype.setLevel = function(level) {
+    this.logLevel = level;
 }
 
 /**
@@ -13,7 +26,7 @@ function DebugConsole() {
  */
 DebugConsole.prototype.processMessage = function(message) {
     if (typeof(message) != 'object') {
-        return message;
+        return (this.isDeprecated ? "WARNING: debug object is deprecated, please use console object \n" + message : message);
     } else {
         /**
          * @function
@@ -41,7 +54,8 @@ DebugConsole.prototype.processMessage = function(message) {
             }
             return str;
         }
-        return "Object:\n" + makeStructured(message);
+        
+        return ((this.isDeprecated ? "WARNING: debug object is deprecated, please use console object\n" :  "") + "Object:\n" + makeStructured(message));
     }
 };
 
@@ -50,7 +64,7 @@ DebugConsole.prototype.processMessage = function(message) {
  * @param {Object|String} message Message or object to print to the console
  */
 DebugConsole.prototype.log = function(message) {
-    if (PhoneGap.available)
+    if (PhoneGap.available && this.logLevel <= DebugConsole.INFO_LEVEL)
         PhoneGap.exec('DebugConsole.log',
             this.processMessage(message),
             { logLevel: 'INFO' }
@@ -64,7 +78,7 @@ DebugConsole.prototype.log = function(message) {
  * @param {Object|String} message Message or object to print to the console
  */
 DebugConsole.prototype.warn = function(message) {
-    if (PhoneGap.available)
+    if (PhoneGap.available && this.logLevel <= DebugConsole.WARN_LEVEL)
         PhoneGap.exec('DebugConsole.log',
             this.processMessage(message),
             { logLevel: 'WARN' }
@@ -78,7 +92,7 @@ DebugConsole.prototype.warn = function(message) {
  * @param {Object|String} message Message or object to print to the console
  */
 DebugConsole.prototype.error = function(message) {
-    if (PhoneGap.available)
+    if (PhoneGap.available && this.logLevel <= DebugConsole.ERROR_LEVEL)
         PhoneGap.exec('DebugConsole.log',
             this.processMessage(message),
             { logLevel: 'ERROR' }
@@ -88,5 +102,6 @@ DebugConsole.prototype.error = function(message) {
 };
 
 PhoneGap.addConstructor(function() {
-    window.debug = new DebugConsole();
+    window.console = new DebugConsole();
+    window.debug = new DebugConsole(true);
 });

@@ -1,10 +1,10 @@
-//
-//  Network.m
-//  PhoneGap
-//
-//  Created by Shazron Abdullah on 29/07/09.
-//  Copyright 2009 Nitobi Inc. All rights reserved.
-//
+/*
+ * PhoneGap is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * 
+ * Copyright (c) 2005-2010, Nitobi Software Inc.
+ */
+
 
 #import "Network.h"
 #import "Reachability.h"
@@ -48,13 +48,9 @@
 	if (callback)
 		jsCallback = callback;
 	
-	NSString* status = [[NSString alloc] initWithFormat:@"%@({ hostName: '%@', ipAddress: '%@', remoteHostStatus: %d, internetConnectionStatus: %d, localWiFiConnectionStatus: %d  });", 
+	NSString* status = [[NSString alloc] initWithFormat:@"%@(%d);", 
 						jsCallback,
-						[[Reachability sharedReachability] hostName],
-						[[Reachability sharedReachability] address],
-					   [[Reachability sharedReachability] remoteHostStatus],
-					   [[Reachability sharedReachability] internetConnectionStatus],
-					   [[Reachability sharedReachability] localWiFiConnectionStatus]];
+					   [[Reachability sharedReachability] internetConnectionStatus]];
 	
 	
     [webView stringByEvaluatingJavaScriptFromString:status];

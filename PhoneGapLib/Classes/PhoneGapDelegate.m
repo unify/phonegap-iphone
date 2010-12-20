@@ -1,3 +1,11 @@
+/*
+ * PhoneGap is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * 
+ * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010, IBM Corporation
+ */
+
 #import "PhoneGapDelegate.h"
 #import "PhoneGapViewController.h"
 #import <UIKit/UIKit.h>
@@ -35,6 +43,11 @@
 	return @"www";
 }
 
++ (NSString*) startPage
+{
+	return @"index.html";
+}
+
 + (NSString*) pathForResource:(NSString*)resourcepath
 {
     NSBundle * mainBundle = [NSBundle mainBundle];
@@ -62,6 +75,10 @@ static NSString *gapVersion;
 		gapVersion = [ [ NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:NULL ] retain ];
 	}
 	return gapVersion;
+}
++ (NSString*) tmpFolderName
+{
+	return @"tmp";
 }
 
 
@@ -121,13 +138,14 @@ static NSString *gapVersion;
 /**
  * This is main kick off after the app inits, the views and Settings are setup here.
  */
-- (void)applicationDidFinishLaunching:(UIApplication *)application
+// - (void)applicationDidFinishLaunching:(UIApplication *)application
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {	
 	// read from UISupportedInterfaceOrientations (or UISupportedInterfaceOrientations~iPad, if its iPad) from -Info.plist
 	NSArray* supportedOrientations = [self parseInterfaceOrientations:
 											   [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"]];
     // read from PhoneGap.plist in the app bundle
-	NSDictionary *temp = [PhoneGapDelegate getBundlePlist:@"PhoneGap"];
+	NSDictionary *temp = [[self class] getBundlePlist:@"PhoneGap"];
     settings = [[NSDictionary alloc] initWithDictionary:temp];
 	
 	viewController = [ [ PhoneGapViewController alloc ] init ];
@@ -153,6 +171,30 @@ static NSString *gapVersion;
 	
 	viewController.webView = webView;
 	[viewController.view addSubview:webView];
+	
+	// This has been moved from the webViewDidStartLoad because invokedURL never had been set
+	// from handleOpenURL - so I've changed this method from using didFinishLaunching to
+	// didFinishLaunchingWithOptions to capture the original url that launched the app
+	NSArray *keyArray = [launchOptions allKeys];
+	if ([launchOptions objectForKey:[keyArray objectAtIndex:0]]!=nil) {
+		NSURL *url = [launchOptions objectForKey:[keyArray objectAtIndex:0]];
+		invokedURL = url;
+		NSLog(@"URL = %@", [invokedURL absoluteURL]);
+		// Determine the URL used to invoke this application.
+		// Described in http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
+		if ([[invokedURL scheme] isEqualToString:[self appURLScheme]]) {
+			InvokedUrlCommand* iuc = [[InvokedUrlCommand newFromUrl:invokedURL] autorelease];
+
+			NSLog(@"Arguments: %@", iuc.arguments);
+
+			NSString *optionsString = [[NSString alloc] initWithFormat:@"var Invoke_params=%@;", [iuc.options JSONFragment]];
+
+			[webView stringByEvaluatingJavaScriptFromString:optionsString];
+
+			[optionsString release];
+		}
+	}
+	
 		
 	/*
 	 * Fire up the GPS Service right away as it takes a moment for data to come back.
@@ -160,6 +202,23 @@ static NSString *gapVersion;
     if ([useLocation boolValue]) {
         [[self getCommandInstance:@"Location"] startLocation:nil withDict:nil];
     }
+	
+	/*
+	 * Create tmp directory. Files written here will be deleted when app terminates
+	 */
+	NSFileManager *fileMgr = [[NSFileManager alloc] init];
+	NSString *docsDir = [[self class] applicationDocumentsDirectory];
+	NSString* tmpDirectory = [docsDir stringByAppendingPathComponent: [[self class] tmpFolderName]];
+	
+	if ([fileMgr createDirectoryAtPath:tmpDirectory withIntermediateDirectories: NO attributes: nil error: nil] == NO)
+	{
+		// might have failed because it already exists
+		if ( [fileMgr fileExistsAtPath:tmpDirectory] == NO )
+		{
+			NSLog(@"Unable to create tmp directory");  // not much we can do it this fails
+		}
+	}
+	[fileMgr release];
 
 	webView.delegate = self;
 
@@ -169,7 +228,14 @@ static NSString *gapVersion;
 	 * webView
 	 * This is where we define the inital instance of the browser (WebKit) and give it a starting url/file.
 	 */
-    NSURL *appURL        = [NSURL fileURLWithPath:[PhoneGapDelegate pathForResource:@"index.html"]];
+	
+	NSString* startPage = [[self class] startPage];
+	NSURL *appURL = [NSURL URLWithString:startPage];
+	if(![appURL scheme])
+	{
+		appURL = [NSURL fileURLWithPath:[[self class] pathForResource:startPage]];
+	}
+	
     NSURLRequest *appReq = [NSURLRequest requestWithURL:appURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 	[webView loadRequest:appReq];
 
@@ -211,6 +277,8 @@ static NSString *gapVersion;
     [activityView startAnimating];
 
 	[window makeKeyAndVisible];
+	
+	return YES;
 }
 
 /**
@@ -219,28 +287,20 @@ static NSString *gapVersion;
  */
 - (void)webViewDidStartLoad:(UIWebView *)theWebView 
 {
-	// Play any default movie
-	NSLog(@"Going to play default movie");
-	Movie* mov = (Movie*)[self getCommandInstance:@"Movie"];
-	NSMutableArray *args = [[[NSMutableArray alloc] init] autorelease];
-	[args addObject:@"default.mov"];
-	NSMutableDictionary* opts = [[[NSMutableDictionary alloc] init] autorelease];
-	[opts setObject:@"1" forKey:@"repeat"];
-	[mov play:args withDict:opts];
-
     // Determine the URL used to invoke this application.
     // Described in http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
-	
- 	if ([[self.invokedURL scheme] isEqualToString:[self appURLScheme]]) {
-		InvokedUrlCommand* iuc = [[InvokedUrlCommand newFromUrl:self.invokedURL] autorelease];
-    
-		NSLog(@"Arguments: %@", iuc.arguments);
-		NSString *optionsString = [[NSString alloc] initWithFormat:@"var Invoke_params=%@;", [iuc.options JSONFragment]];
-	 
-		[webView stringByEvaluatingJavaScriptFromString:optionsString];
-		
-		[optionsString release];
-    }
+
+	// This fires before the handleOpenURL fires, so the invokedURL is empty
+  // if ([[invokedURL scheme] isEqualToString:[self appURLScheme]]) {
+  //    InvokedUrlCommand* iuc = [[InvokedUrlCommand newFromUrl:invokedURL] autorelease];
+  //     
+  //    NSLog(@"Arguments: %@", iuc.arguments);
+  //    NSString *optionsString = [[NSString alloc] initWithFormat:@"var Invoke_params=%@;", [iuc.options JSONFragment]];
+  //   
+  //    [webView stringByEvaluatingJavaScriptFromString:optionsString];
+  //    
+  //    [optionsString release];
+  //     }
 }
 
 - (NSDictionary*) deviceProperties
@@ -251,7 +311,7 @@ static NSString *gapVersion;
     [devProps setObject:[device systemVersion] forKey:@"version"];
     [devProps setObject:[device uniqueIdentifier] forKey:@"uuid"];
     [devProps setObject:[device name] forKey:@"name"];
-    [devProps setObject:[PhoneGapDelegate phoneGapVersion ] forKey:@"gap"];
+    [devProps setObject:[[self class] phoneGapVersion ] forKey:@"gap"];
 	
     NSDictionary *devReturn = [NSDictionary dictionaryWithDictionary:devProps];
     return devReturn;
@@ -331,7 +391,7 @@ static NSString *gapVersion;
      * such as specifying Full / Lite version, or localization (English vs German, for instance).
 	 */
 	
-    NSDictionary *temp = [PhoneGapDelegate getBundlePlist:@"Settings"];
+    NSDictionary *temp = [[self class] getBundlePlist:@"Settings"];
     if ([temp respondsToSelector:@selector(JSONFragment)]) {
         [result appendFormat:@"\nwindow.Settings = %@;", [temp JSONFragment]];
     }
@@ -393,20 +453,22 @@ static NSString *gapVersion;
 	}
     
     /*
-     * If a URL is being loaded that's a local file URL, just load it internally
+     * If a URL is being loaded that's a file/http/https URL, just load it internally
      */
-    else if ([url isFileURL])
+    else if ([url isFileURL] || 
+			 [[url scheme] isEqualToString:@"http"] || 
+			 [[url scheme] isEqualToString:@"https"])
     {
-        //NSLog(@"File URL %@", [url description]);
         return YES;
     }
     
     /*
-     * We don't have a PhoneGap or local file request, load it in the main Safari browser.
+     * We don't have a PhoneGap or web/local request, load it in the main Safari browser.
+	 * pass this to the application to handle.  Could be a mailto:dude@duderanch.com or a tel:55555555 or sms:55555555 facetime:55555555
      */
     else
     {
-        //NSLog(@"Unknown URL %@", [url description]);
+        NSLog(@"PhoneGapDelegate::shouldStartLoadWithRequest: Received Unhandled URL %@", url);
         [[UIApplication sharedApplication] openURL:url];
         return NO;
 	}
@@ -438,6 +500,17 @@ static NSString *gapVersion;
 	return YES;
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+	NSLog(@"applicationWillTerminate");
+	// empty the tmp directory
+	NSFileManager* fileMgr = [[NSFileManager alloc] init];
+	NSString* tmpPath = [[[self class] applicationDocumentsDirectory] stringByAppendingPathComponent: [[self class] tmpFolderName]];
+	NSError* err = nil;	
+	if (![fileMgr removeItemAtPath: tmpPath error: &err]){
+		NSLog(@"Error removing tmp directory: %@", [err localizedDescription]); // could error because was already deleted
+	}
+}
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
@@ -445,7 +518,7 @@ static NSString *gapVersion;
 	if (!url) { return NO; }
 	
 	NSLog(@"URL = %@", [url absoluteURL]);
-	self.invokedURL = url;
+	invokedURL = url;
 	
 	return YES;
 }
@@ -457,7 +530,7 @@ static NSString *gapVersion;
 	[viewController release];
     [activityView release];
 	[window release];
-	self.invokedURL = nil;
+	[invokedURL release];
 	
 	[super dealloc];
 }

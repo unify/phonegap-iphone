@@ -1,10 +1,9 @@
-//
-//  OCABRecordRef.m
-//  PhoneGap
-//
-//  Created by shazron on 29/05/09.
-//  Copyright 2009 Nitobi Software Inc.. All rights reserved.
-//
+/*
+ * PhoneGap is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * 
+ * Copyright (c) 2005-2010, Nitobi Software Inc.
+ */
 
 #import "OCCFObject.h"
 #import "OCABRecord.h"
@@ -66,6 +65,7 @@
 	CFRelease(rec);
 	return val;
 }
+
 - (OCABMutableMultiValue*) emails
 {
   CFTypeRef rec = ABRecordCopyValue([self ABRecordRef], kABPersonEmailProperty);
@@ -76,6 +76,18 @@
   id val = [[[OCABMutableMultiValue alloc] initWithCFTypeRef:rec] autorelease];
   CFRelease(rec);
   return val;
+}
+
+- (OCABMutableMultiValue*) addresses
+{
+	CFTypeRef rec = ABRecordCopyValue([self ABRecordRef], kABPersonAddressProperty);
+	if (!rec) {
+		rec = ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
+	}
+	
+	id val = [[[OCABMutableMultiValue alloc] initWithCFTypeRef:rec] autorelease];
+	CFRelease(rec);
+	return val;
 }
 
 - (BOOL) setFirstName:(NSString*)firstName
@@ -109,14 +121,14 @@
         name = [NSString stringWithFormat:@"%@",firstName !=nil ? firstName: lastName];
       }
 	
-	return [[[NSString alloc] initWithFormat:@"{ recordID: %d, name:'%@', firstName:'%@', lastName: '%@', phoneNumbers:%@, emails: %@, address:'%@'}",
+	return [[[NSString alloc] initWithFormat:@"{ recordID: %d, name:'%@', firstName:'%@', lastName: '%@', phoneNumbers:%@, emails: %@, address:%@}",
            [self recordID],
-                        name,
+			name,
             firstName == nil? emptyString : firstName,
             lastName == nil? emptyString : lastName,
             [[self phoneNumbers] JSONValue],
-                        [[self emails] JSONValue],
-           @""
+			[[self emails] JSONValue],
+            [[self addresses] JSONValue]
            ] autorelease];
 }
 

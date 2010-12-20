@@ -1,10 +1,10 @@
-//
-//  Categories.m
-//  PhoneGap
-//
-//  Created by Shazron Abdullah on 26/05/09.
-//  Copyright 2009 Nitobi Software. All rights reserved.
-//
+/*
+ * PhoneGap is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * 
+ * Copyright (c) 2005-2010, Nitobi Software Inc.
+ */
+
 
 #import "Categories.h"
 #import <math.h>
@@ -24,18 +24,13 @@
 
 - (NSUInteger) integerValueForKey:(NSString*)key  defaultValue:(NSUInteger)defaultValue withRange:(NSRange)range
 {
-	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-	[numberFormatter setRoundingMode:NSNumberFormatterRoundCeiling];
-	
+
 	NSUInteger value = defaultValue;
 	
-	id val = [self valueForKey:key];
+	NSNumber* val = [self valueForKey:key];  //value is an NSNumber
 	if (val != nil) {
-		NSNumber* number = [numberFormatter numberFromString:(NSString*)val];
-		value = [number unsignedIntValue];
+		value = [val unsignedIntValue];
 	}
-	
-	[numberFormatter release];
 	
 	// min, max checks
 	value = MAX(range.location, value);

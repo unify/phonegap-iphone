@@ -13,9 +13,9 @@
 
 #import "Location.h"
 #import "Sound.h"
-#import "Contacts.h"
+
+
 #import "DebugConsole.h"
-#import "UIControls.h"
 //#import "Image.h"
 
 @class InvokedUrlCommand;
@@ -50,6 +50,7 @@
 }
 
 @property (nonatomic, retain) UIWindow *window;
+@property (nonatomic, retain) UIWebView *webView;
 @property (nonatomic, retain) PhoneGapViewController *viewController;
 @property (nonatomic, retain) UIActivityIndicatorView *activityView;
 @property (nonatomic, retain) NSMutableDictionary *commandObjects;
